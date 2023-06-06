@@ -12,34 +12,34 @@ class FaceTest {
         var point0 = new Vector(-0.5, -0.75);
         var point1 = new Vector(0.5, -0.75);
         var point2 = new Vector(0, 0.25);
-        var triagle = new Face(point0,  point1, point2);
+        var triangle = new Face(point0,  point1, point2);
 
-        assertTrue(triagle.containsPoint(0,0));
-        assertFalse(triagle.containsPoint(0.2,0.25));
+        assertTrue(triangle.containsPoint(0,0));
+        assertFalse(triangle.containsPoint(0.2,0.25));
     }
 
     @Test
     public void minX() {
-        var triagle = getXAxisTriangle(12, 23, 250);
-        assertEquals(12, triagle.getMinX());
+        var triangle = getXAxisTriangle(12, 23, 250);
+        assertEquals(12, triangle.getMinX());
     }
 
     @Test
     public void maxX() {
-        var triagle = getXAxisTriangle(12, 23, 250);
-        assertEquals(250, triagle.getMaxX());
+        var triangle = getXAxisTriangle(12, 23, 250);
+        assertEquals(250, triangle.getMaxX());
     }
 
     @Test
     public void minY() {
-        var triagle = getYAxisTriangle(7, 77, 340);
-        assertEquals(7, triagle.getMinY());
+        var triangle = getYAxisTriangle(7, 77, 340);
+        assertEquals(7, triangle.getMinY());
     }
 
     @Test
     public void maxY() {
-        var triagle = getYAxisTriangle(7, 77, 340);
-        assertEquals(340, triagle.getMaxY());
+        var triangle = getYAxisTriangle(7, 77, 340);
+        assertEquals(340, triangle.getMaxY());
     }
 
     private Face getXAxisTriangle(double x0, double x1, double x2) {
