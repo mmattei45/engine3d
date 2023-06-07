@@ -60,7 +60,7 @@ public class ModelLoader {
 
     private static Vector extractFaceVector(String info, Model model) {
         var split = info.split("/");
-        int vectorIdx = Integer.parseInt(split[0]);
+        int vectorIdx = Integer.parseInt(split[0]) - 1;
 
         return model.getVertex(vectorIdx);
     }
