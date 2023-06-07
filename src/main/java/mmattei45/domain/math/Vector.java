@@ -4,45 +4,52 @@ import org.ejml.simple.SimpleMatrix;
 
 public class Vector {
 
-    public double x, y, z, w;
+    private SimpleMatrix matrix;
 
     public Vector(double x, double y) {
-        this.x = x;
-        this.y = y;
-        this.z = 0;
-        this.w = 1;
+        this(x, y, 0, 0);
     }
 
     public Vector(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.w = 1;
+        this(x, y, z, 0);
     }
 
     public Vector(double x, double y, double z, double w) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.w = w;
+        var matrix = new SimpleMatrix(4, 1);
+        matrix.setRow(0, 0, x);
+        matrix.setRow(1, 0, y);
+        matrix.setRow(2, 0, z);
+        matrix.setRow(3, 0, w);
+        this.matrix = matrix;
     }
 
-    public void transform(SimpleMatrix matrix) {
-        transform(matrix, this, this);
+    public Vector(SimpleMatrix matrix) {
+        this.matrix = matrix;
     }
 
-    private static Vector transform(SimpleMatrix matrix, Vector vector, Vector dest) {
-        double x = matrix.get(0, 0) * vector.x + matrix.get(1, 0) * vector.y + matrix.get(2, 0) * vector.z + matrix.get(3, 0) * vector.w;
-        double y = matrix.get(0, 1) * vector.x + matrix.get(1, 1) * vector.y + matrix.get(2, 1) * vector.z + matrix.get(3, 1) * vector.w;
-        double z = matrix.get(0, 2) * vector.x + matrix.get(1, 2) * vector.y + matrix.get(2, 2) * vector.z + matrix.get(3, 2) * vector.w;
-        double w = matrix.get(0, 3) * vector.x + matrix.get(1, 3) * vector.y + matrix.get(2, 3) * vector.z + matrix.get(3, 3) * vector.w;
+    public double getX() {
+        return matrix.get(0, 0);
+    };
 
-        dest.x = x;
-        dest.y = y;
-        dest.z = z;
-        dest.w = w;
+    public double getY() {
+        return matrix.get(1, 0);
+    };
 
-        return dest;
+    public double getZ() {
+        return matrix.get(2, 0);
+    };
+
+    public double getW() {
+        return matrix.get(3, 0);
+    };
+
+
+    public void transform(SimpleMatrix transformationMatrix) {
+        this.matrix = transformationMatrix.mult(matrix);
+    }
+
+    public Vector getTransformed(SimpleMatrix transformationMatrix) {
+        return new Vector(transformationMatrix.mult(matrix));
     }
 
 }

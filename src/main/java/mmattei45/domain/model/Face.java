@@ -26,16 +26,24 @@ public class Face {
         }
     }
 
-    public boolean containsPoint(double x, double y) {
-        double wv1 = ((vertexB.y - vertexC.y) * (x - vertexC.x) +
-                (vertexC.x - vertexB.x) * (y - vertexC.y)) /
-                ((vertexB.y - vertexC.y) * (vertexA.x - vertexC.x) +
-                        (vertexC.x - vertexB.x) * (vertexA.y - vertexC.y));
+    public Face getTransformed(SimpleMatrix matrix) {
+        var vector0 = vertexA.getTransformed(matrix);
+        var vector1 = vertexB.getTransformed(matrix);
+        var vector2 = vertexC.getTransformed(matrix);
 
-        double wv2 = ((vertexC.y - vertexA.y) * (x - vertexC.x) +
-                (vertexA.x - vertexC.x) * (y - vertexC.y)) /
-                ((vertexB.y - vertexC.y) * (vertexA.x - vertexC.x) +
-                        (vertexC.x - vertexB.x) * (vertexA.y - vertexC.y));
+        return new Face(vector0, vector1, vector2);
+    }
+
+    public boolean containsPoint(double x, double y) {
+        double wv1 = ((vertexB.getY() - vertexC.getY()) * (x - vertexC.getX()) +
+                (vertexC.getX() - vertexB.getX()) * (y - vertexC.getY())) /
+                ((vertexB.getY() - vertexC.getY()) * (vertexA.getX() - vertexC.getX()) +
+                        (vertexC.getX() - vertexB.getX()) * (vertexA.getY() - vertexC.getY()));
+
+        double wv2 = ((vertexC.getY() - vertexA.getY()) * (x - vertexC.getX()) +
+                (vertexA.getX() - vertexC.getX()) * (y - vertexC.getY())) /
+                ((vertexB.getY() - vertexC.getY()) * (vertexA.getX() - vertexC.getX()) +
+                        (vertexC.getX() - vertexB.getX()) * (vertexA.getY() - vertexC.getY()));
 
         double wv3 = 1.0 - wv1 - wv2;
 
@@ -52,40 +60,40 @@ public class Face {
         int halfHeight = height / 2;
 
         return new Face(
-                new Vector((vertexA.x * halfWidth )+ halfWidth, -(vertexA.y * halfHeight) + halfHeight),
-                new Vector((vertexB.x * halfWidth) + halfWidth, -(vertexB.y * halfHeight) + halfHeight),
-                new Vector((vertexC.x * halfWidth) + halfWidth, -(vertexC.y * halfHeight) + halfHeight)
+                new Vector((vertexA.getX() * halfWidth )+ halfWidth, -(vertexA.getY() * halfHeight) + halfHeight),
+                new Vector((vertexB.getX() * halfWidth) + halfWidth, -(vertexB.getY() * halfHeight) + halfHeight),
+                new Vector((vertexC.getX() * halfWidth) + halfWidth, -(vertexC.getY() * halfHeight) + halfHeight)
         );
     }
 
     public double getMinX() {
-        double min = vertexA.x;
+        double min = vertexA.getX();
         for (Vector p : vertexes) {
-            if (p.x < min) min = p.x;
+            if (p.getX() < min) min = p.getX();
         }
         return min;
     }
 
     public double getMaxX() {
-        double max = vertexA.x;
+        double max = vertexA.getX();
         for (Vector p : vertexes) {
-            if (p.x > max) max = p.x;
+            if (p.getX() > max) max = p.getX();
         }
         return max;
     }
 
     public double getMinY() {
-        double min = vertexA.y;
+        double min = vertexA.getY();
         for (Vector p : vertexes) {
-            if (p.y < min) min = p.y;
+            if (p.getY() < min) min = p.getY();
         }
         return min;
     }
 
     public double getMaxY() {
-        double max = vertexA.y;
+        double max = vertexA.getY();
         for (Vector p : vertexes) {
-            if (p.y > max) max = p.y;
+            if (p.getY() > max) max = p.getY();
         }
         return max;
     }
