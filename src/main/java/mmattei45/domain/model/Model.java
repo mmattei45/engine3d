@@ -1,6 +1,7 @@
 package mmattei45.domain.model;
 
 import mmattei45.domain.math.Vector;
+import org.ejml.simple.SimpleMatrix;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,11 @@ public class Model {
         faces.add(face);
     }
 
-//    public void transform(Matrix44 t) {
-//        for (int i = 0; i < vertexes.size(); i++) {
-//            vertexes.get(i).transform(t);
-//        }
-//    }
+    public void transform(SimpleMatrix t) {
+        for (int i = 0; i < vertexes.size(); i++) {
+            vertexes.get(i).transform(t);
+        }
+    }
 
     public Vector getVertex(int idx) {
         return vertexes.get(idx);

@@ -31,6 +31,16 @@ public class NCursesScreen implements Screen {
     }
 
     @Override
+    public void clear() {
+        NCURSES.erase();
+    }
+
+    @Override
+    public void refresh() {
+        NCURSES.refresh();
+    }
+
+    @Override
     public int getHeight() {
         return 50;
     }

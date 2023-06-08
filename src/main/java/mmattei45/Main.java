@@ -4,37 +4,42 @@ import mmattei45.domain.display.Buffer;
 import mmattei45.domain.display.Rasterizer;
 import mmattei45.domain.math.MatrixFactory;
 import mmattei45.domain.math.Vector;
-import mmattei45.domain.math.projection.OrthogonalProjection;
 import mmattei45.domain.model.Face;
+import mmattei45.domain.model.ModelLoader;
 import mmattei45.infra.display.NCursesScreen;
-import org.ejml.simple.SimpleMatrix;
+
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         var screen = new NCursesScreen();
         var buffer = new Buffer(screen);
         var rasterizer = new Rasterizer(buffer);
-
-
-
-
-
-        var rotation = MatrixFactory.rotation(0, 0, 90);
-        var triangle = get2dTriange();
-
-
-
-        
-        triangle.transform(rotation);
+        var rotation = MatrixFactory.rotation(4, 10, 13);
+        var cube = ModelLoader.loadModel("cube.obj");
+        var faces = cube.getFaces();
 
         screen.init();
 
+        for (int i = 0; i < 50; i++) {
+            screen.clear();
+            buffer.resetBuffer();
 
-        rasterizer.rasterize(triangle);
-        buffer.presentFrame();
+            rasterizeFaces(rasterizer, faces);
+            cube.transform(rotation);
 
-        screen.getChar();
+            buffer.presentFrame();
+            screen.refresh();
+            Thread.sleep(70);
+        }
+
         screen.exit();
+    }
+
+    private static void rasterizeFaces(Rasterizer rasterizer, List<Face> faces) {
+        for (int i = 0; i < faces.size(); i++) {
+            rasterizer.rasterize(faces.get(i));
+        }
     }
 
     private static Face get2dTriange() {
@@ -45,8 +50,4 @@ public class Main {
         );
     }
 
-    private static SimpleMatrix getProjection() {
-        return OrthogonalProjection.getMatrix(-1, 1, -1, 1, -2, 2);
-//        return PerspectiveProjetction.getMatrix(1.6d, (Terminal.WIDTH / 2) / Terminal.HEIGHT, 0.2d, 400);
-    }
 }

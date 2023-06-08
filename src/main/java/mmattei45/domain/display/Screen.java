@@ -6,7 +6,9 @@ public interface Screen {
     void setLine(int y, String s);
     void exit();
     char getChar();
-    public int getHeight();
-    public int getWidth();
+    int getHeight();
+    int getWidth();
+    void clear();
+    void refresh();
 
 }
