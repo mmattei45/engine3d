@@ -30,4 +30,28 @@ class VectorTest {
         assertEquals(2.5, vector.getZ(), 0.001);
     }
 
+    @Test
+    public void dotProduct() {
+        var a = new Vector(1, 0, -2);
+        var b = new Vector(3, -1, 1);
+
+        assertEquals(1, a.dotProduct(b));
+        assertEquals(1, b.dotProduct(a));
+    }
+
+    @Test
+    public void magnitude() {
+        var vector = new Vector(1, 0, -2);
+
+        assertEquals(Math.sqrt(5), vector.magnitude(), 0.001);
+    }
+
+    @Test
+    public void angle() {
+        var a = new Vector(1, 0, -2);
+        var b = new Vector(3, -1, 1);
+
+        assertEquals(82.25, a.angle(b), 0.001);
+    }
+
 }

@@ -2,6 +2,7 @@ package mmattei45;
 
 import mmattei45.domain.display.Buffer;
 import mmattei45.domain.display.Rasterizer;
+import mmattei45.domain.display.Screen;
 import mmattei45.domain.math.MatrixFactory;
 import mmattei45.domain.math.Vector;
 import mmattei45.domain.model.Face;
@@ -15,19 +16,17 @@ public class Main {
         var screen = new NCursesScreen();
         var buffer = new Buffer(screen);
         var rasterizer = new Rasterizer(buffer);
-        var rotation = MatrixFactory.rotation(4, 10, 13);
-        var cube = ModelLoader.loadModel("cube.obj");
-        var faces = cube.getFaces();
+        var rotation = MatrixFactory.rotation(0, 15, -10);
+        var model = ModelLoader.loadModel("teapot.obj");
+        var faces = model.getFaces();
 
         screen.init();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             screen.clear();
             buffer.resetBuffer();
-
             rasterizeFaces(rasterizer, faces);
-            cube.transform(rotation);
-
+            model.transform(rotation);
             buffer.presentFrame();
             screen.refresh();
             Thread.sleep(70);
@@ -40,14 +39,6 @@ public class Main {
         for (int i = 0; i < faces.size(); i++) {
             rasterizer.rasterize(faces.get(i));
         }
-    }
-
-    private static Face get2dTriange() {
-        return new Face(
-                new Vector(0, -0.5, 0, 1),
-                new Vector(-0.5, 0.5, 0, 1),
-                new Vector(0.5, 0.5, 0, 1)
-        );
     }
 
 }

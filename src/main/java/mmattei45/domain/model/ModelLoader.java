@@ -54,8 +54,9 @@ public class ModelLoader {
         var vector0 = extractFaceVector(split[1], model);
         var vector1 = extractFaceVector(split[2], model);
         var vector2 = extractFaceVector(split[3], model);
+        var normal = extractFaceNormal(split[1], model);
 
-        return new Face(vector0, vector1, vector2);
+        return new Face(vector0, vector1, vector2,  normal);
     }
 
     private static Vector extractFaceVector(String info, Model model) {
@@ -63,6 +64,13 @@ public class ModelLoader {
         int vectorIdx = Integer.parseInt(split[0]) - 1;
 
         return model.getVertex(vectorIdx);
+    }
+
+    private static Vector extractFaceNormal(String info, Model model) {
+        var split = info.split("/");
+        var normalIdx = Integer.parseInt(split[2]) - 1;
+
+        return model.getNormal(normalIdx);
     }
 
 }

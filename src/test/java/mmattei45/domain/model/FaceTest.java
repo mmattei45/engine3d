@@ -12,7 +12,7 @@ class FaceTest {
         var point0 = new Vector(-0.5, -0.75);
         var point1 = new Vector(0.5, -0.75);
         var point2 = new Vector(0, 0.25);
-        var triangle = new Face(point0,  point1, point2);
+        var triangle = new Face(point0,  point1, point2, new Vector(0, 0, 0));
 
         assertTrue(triangle.containsPoint(0,0));
         assertFalse(triangle.containsPoint(0.2,0.25));
@@ -46,14 +46,14 @@ class FaceTest {
         var point0 = new Vector(x0, 0);
         var point1 = new Vector(x1, 0);
         var point2 = new Vector(x2, 0);
-        return new Face(point0,  point1, point2);
+        return new Face(point0,  point1, point2, new Vector(0, 0, 0));
     }
 
     private Face getYAxisTriangle(double y0, double y1, double y2) {
         var point0 = new Vector(0, y0);
         var point1 = new Vector(0, y1);
         var point2 = new Vector(0, y2);
-        return new Face(point0,  point1, point2);
+        return new Face(point0,  point1, point2, new Vector(0, 0, 0));
     }
 
 }

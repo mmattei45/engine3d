@@ -28,6 +28,10 @@ public class Model {
         for (int i = 0; i < vertexes.size(); i++) {
             vertexes.get(i).transform(t);
         }
+
+        for (int i = 0; i < normals.size(); i++) {
+            normals.get(i).transform(t);
+        }
     }
 
     public Vector getVertex(int idx) {

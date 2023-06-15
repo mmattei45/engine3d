@@ -10,8 +10,10 @@ public class Face {
     private Vector vertexA;
     private Vector vertexB;
     private Vector vertexC;
+    private Vector normal;
 
-    public Face(Vector vertexA, Vector vertexB, Vector vertexC) {
+    public Face(Vector vertexA, Vector vertexB, Vector vertexC, Vector normal) {
+        this.normal = normal;
         this.vertexA = vertexA;
         this.vertexB = vertexB;
         this.vertexC = vertexC;
@@ -24,14 +26,21 @@ public class Face {
         for (Vector p : vertexes) {
             p.transform(matrix);
         }
+
+        normal.transform(matrix);
     }
 
     public Face getTransformed(SimpleMatrix matrix) {
         var vector0 = vertexA.getTransformed(matrix);
         var vector1 = vertexB.getTransformed(matrix);
         var vector2 = vertexC.getTransformed(matrix);
+        var tNormal = normal.getTransformed(matrix);
 
-        return new Face(vector0, vector1, vector2);
+        return new Face(vector0, vector1, vector2, tNormal);
+    }
+
+    public double getAproximateDepth() {
+        return (vertexA.getZ() + vertexB.getZ() + vertexC.getZ()) / 3;
     }
 
     public boolean containsPoint(double x, double y) {
@@ -62,7 +71,8 @@ public class Face {
         return new Face(
                 new Vector((vertexA.getX() * halfWidth )+ halfWidth, -(vertexA.getY() * halfHeight) + halfHeight),
                 new Vector((vertexB.getX() * halfWidth) + halfWidth, -(vertexB.getY() * halfHeight) + halfHeight),
-                new Vector((vertexC.getX() * halfWidth) + halfWidth, -(vertexC.getY() * halfHeight) + halfHeight)
+                new Vector((vertexC.getX() * halfWidth) + halfWidth, -(vertexC.getY() * halfHeight) + halfHeight),
+                new Vector(normal.getX(), normal.getY(), normal.getZ())
         );
     }
 
@@ -96,6 +106,10 @@ public class Face {
             if (p.getY() > max) max = p.getY();
         }
         return max;
+    }
+
+    public Vector getNormal() {
+        return normal;
     }
 
 }
