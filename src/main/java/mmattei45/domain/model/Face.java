@@ -39,28 +39,33 @@ public class Face {
         return new Face(vector0, vector1, vector2, tNormal);
     }
 
-    public double getAproximateDepth() {
-        return (vertexA.getZ() + vertexB.getZ() + vertexC.getZ()) / 3;
+    public double getAproximateDepth(Vector baricentricCoords) {
+        return vertexA.getZ() * baricentricCoords.getX() +
+                vertexB.getZ() * baricentricCoords.getY() +
+                vertexC.getZ() * baricentricCoords.getZ();
     }
 
-    public boolean containsPoint(double x, double y) {
-        double wv1 = ((vertexB.getY() - vertexC.getY()) * (x - vertexC.getX()) +
+    public Vector getBaricentricCoordinates(double x, double y) {
+        double barX = ((vertexB.getY() - vertexC.getY()) * (x - vertexC.getX()) +
                 (vertexC.getX() - vertexB.getX()) * (y - vertexC.getY())) /
                 ((vertexB.getY() - vertexC.getY()) * (vertexA.getX() - vertexC.getX()) +
                         (vertexC.getX() - vertexB.getX()) * (vertexA.getY() - vertexC.getY()));
 
-        double wv2 = ((vertexC.getY() - vertexA.getY()) * (x - vertexC.getX()) +
+        double barY = ((vertexC.getY() - vertexA.getY()) * (x - vertexC.getX()) +
                 (vertexA.getX() - vertexC.getX()) * (y - vertexC.getY())) /
                 ((vertexB.getY() - vertexC.getY()) * (vertexA.getX() - vertexC.getX()) +
                         (vertexC.getX() - vertexB.getX()) * (vertexA.getY() - vertexC.getY()));
 
-        double wv3 = 1.0 - wv1 - wv2;
+        double barZ = 1.0 - barX - barY;
 
-        boolean one = (wv1 < -0.01);
-        boolean two = (wv2 < -0.01);
-        boolean three = (wv3 < -0.01);
+        return new Vector(barX, barY, barZ);
+    }
 
-        //is the point in the triangle
+    public boolean containsPoint(Vector baricentricCoords) {
+        var one = baricentricCoords.getX() < -0.01;
+        var two = baricentricCoords.getY() < -0.01;
+        var three = baricentricCoords.getZ() < -0.01;
+
         return ((one == two) && (two == three));
     }
 

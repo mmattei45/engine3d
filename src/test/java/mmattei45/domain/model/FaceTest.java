@@ -14,8 +14,8 @@ class FaceTest {
         var point2 = new Vector(0, 0.25);
         var triangle = new Face(point0,  point1, point2, new Vector(0, 0, 0));
 
-        assertTrue(triangle.containsPoint(0,0));
-        assertFalse(triangle.containsPoint(0.2,0.25));
+        assertTrue(triangle.containsPoint(triangle.getBaricentricCoordinates(0, 0)));
+        assertFalse(triangle.containsPoint(triangle.getBaricentricCoordinates(0.2,0.25)));
     }
 
     @Test

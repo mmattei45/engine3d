@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 public class Buffer {
 
-    Screen Screen;
-    char[][] colorBuffer;
-    Double[][] depthBuffer;
+    private Screen Screen;
+    private char[][] colorBuffer;
+    private Double[][] depthBuffer;
 
     public Buffer(Screen Screen) {
         this.Screen = Screen;
@@ -18,7 +18,8 @@ public class Buffer {
     public void setValue(int x, int y, char val, double depth) {
         Double currDepth = depthBuffer[y][x];
 
-        if (currDepth == null || depth < currDepth) {
+        if (currDepth == null || currDepth < depth) {
+                depthBuffer[y][x] = depth;
                 colorBuffer[y][x] = val;
         }
     }
