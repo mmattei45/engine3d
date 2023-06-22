@@ -2,7 +2,7 @@
 
 ![smaller-teapot](https://github.com/mmattei45/engine3d/assets/36969485/c9fa8818-7be0-4806-88c3-19bcd3903e0a)
 
-This is a very simple 3d engine that uses the terminal as a screen. Keep in mind that this is just for fun project.
+This is a very simple 3d engine that uses the terminal as a screen. Keep in mind that this is a just for fun project.
 
 ## How to run
 Because of the ncurses dependency, it is currently only possible to run this project on linux.
