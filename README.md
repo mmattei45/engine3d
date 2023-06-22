@@ -19,3 +19,7 @@ select a .obj file on "Main.java".
 - Improve the Terminal interface and implement a Swing Terminal so Windows users can run the project
 - Solve the 3d text issue
 - Create a menu for the program, and remove .obj files from the source code
+
+## Special Thanks
+
+A special thanks to [youngbrycecode](https://github.com/youngbrycecode) who did this great [tutorial](https://www.youtube.com/watch?v=LgvLfR2zG3g&list=PLg4mWef4l7Qzxs_Fa2DrgZeJKAbG3b7ue&index=1) on Youtube that really helped me on this project.
