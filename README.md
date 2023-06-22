@@ -14,6 +14,7 @@ select a .obj file on "Main.java".
 ```./run.sh```
 
 ## TODO List
+- Improve this README.md
 - Clean the code
 - Get rid of the hard coded screen size
 - Improve the Terminal interface and implement a Swing Terminal so Windows users can run the project
